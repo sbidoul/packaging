@@ -150,15 +150,15 @@ def test_canonicalize_version_no_strip_trailing_zero(version: str) -> None:
             },
         ),
         (
-            "foo_bár-1.0-py3-none-any.whl",
-            "foo-bár",
+            "foo_bar-1.0-py3-none-any.whl",
+            "foo-bar",
             Version("1.0"),
             (),
             {Tag("py3", "none", "any")},
         ),
         (
-            "foo_bár-1.0-1000-py3-none-any.whl",
-            "foo-bár",
+            "foo_bar-1.0-1000-py3-none-any.whl",
+            "foo-bar",
             Version("1.0"),
             (1000, ""),
             {Tag("py3", "none", "any")},
@@ -188,6 +188,8 @@ def test_parse_wheel_filename(
         ("foo-1.0--none-any.whl"),  # Empty interpreter component
         ("foo-1.0-py3-none-.whl"),  # Empty platform component
         ("foo-1.0-py3.-none-any.whl"),  # Empty member in a compressed tag set
+        ("foo_bár-1.0-py3-none-any.whl"),  # invalid character in project name
+        ("foo_bár-1.0-1000-py3-none-any.whl"),  # invalid character in project name
     ],
 )
 def test_parse_wheel_invalid_filename(filename: str) -> None:
